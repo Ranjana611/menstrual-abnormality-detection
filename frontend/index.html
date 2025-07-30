@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!DOCTYPE html>
-<html lang="en" class="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white">
+<html lang="en" class="bg-gradient-to-br from-blue-600 via-cyan-800 to-gray-900 text-white">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,8 +8,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="min-h-screen flex items-center justify-center p-6">
-    <div class="w-full max-w-5xl bg-white/5 backdrop-blur-sm p-8 rounded-2xl shadow-2xl border border-purple-600">
-        <h1 class="text-3xl font-bold text-purple-400 text-center mb-8">🩺 Menstrual Abnormality Checker</h1>
+    <div class="w-full max-w-5xl bg-white/5 backdrop-blur-sm p-8 rounded-2xl shadow-2xl border border-cyan-600">
+        <h1 class="text-3xl font-bold text-white-400 text-center mb-8">Menstrual Abnormality Checker</h1>
 
         <form id="predictionForm" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             <!-- Age -->
@@ -79,5 +79,42 @@
         <!-- Prediction Result -->
         <div id="result" class="mt-6 text-center text-xl font-medium text-white"></div>
     </div>
+
+    <!-- Script for form submission -->
+    <script>
+        document.getElementById('predictionForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            const form = e.target;
+            const data = {
+                age: Number(form.age.value),
+                cycle_length: Number(form.cycle_length.value),
+                period_duration: Number(form.period_duration.value),
+                flow_intensity: Number(form.flow_intensity.value),
+                pms_score: Number(form.pms_score.value),
+                spotting: Number(form.spotting.value),
+                stress_level: Number(form.stress_level.value)
+            };
+
+            const resultDiv = document.getElementById('result');
+            resultDiv.textContent = "🔄 Processing...";
+
+            try {
+                const response = await fetch('http://localhost:5000/predict', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+
+                const result = await response.json();
+                resultDiv.textContent = result.prediction === 1
+                    ? "⚠️ Abnormal menstrual pattern detected"
+                    : "✅ Your cycle appears normal";
+            } catch (err) {
+                resultDiv.textContent = "❌ Error: Unable to get prediction. Please try again.";
+                console.error(err);
+            }
+        });
+    </script>
 </body>
 </html>
