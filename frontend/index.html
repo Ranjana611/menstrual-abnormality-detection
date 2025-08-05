@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="en" class="bg-gradient-to-br from-blue-600 via-cyan-800 to-gray-900 text-white">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menstrual Abnomility Detection</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen flex flex-col items-center justify-center p-6">
+    <header class="w-full max-w-5xl text-center mb-6 pb-4">
+        <h1 class="text-6xl font-bold text-white-500">CycleSense</h1>
+    </header>
+
+    <div class="w-full max-w-5xl bg-white/5 backdrop-blur-sm p-8 rounded-3xl shadow-2xl border-2 border-cyan-600 relative overflow-hidden">
+        <h1 class="text-3xl font-bold text-white-400 text-center mb-8">Menstrual Abnormality Checker</h1>
+
+        <form id="predictionForm" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 pt-4">
+            <!-- Age -->
+            <div>
+                <label class="block text-sm font-medium mb-1 pb-2">Age (in years)</label>
+                <input type="number" name="age" required
+                    class="w-full p-2 rounded-xl bg-gray-800 border border-gray-600 focus:ring-2 focus:ring-white-500" />
+            </div>
+
+            <!-- Cycle Length -->
+            <div>
+                <label class="block text-sm font-medium mb-1 pb-2">Average cycle length (in days)</label>
+                <input type="number" name="cycle_length" required
+                    class="w-full p-2 rounded-xl bg-gray-800 border border-gray-600 focus:ring-2 focus:ring-white-500" />
+            </div>
+
+            <!-- Period Duration -->
+            <div>
+                <label class="block text-sm font-medium mb-1 pb-2">Period duration (in days)</label>
+                <input type="number" name="period_duration" required
+                    class="w-full p-2 rounded-xl bg-gray-800 border border-gray-600 focus:ring-2 focus:ring-white-500" />
+            </div>
+
+            <!-- Flow Intensity -->
+            <div>
+                <label class="block text-sm font-medium mb-1 pb-2">Flow intensity</label>
+                <select name="flow_intensity" required
+                    class="w-full p-2 rounded-xl bg-gray-800 border border-gray-600 focus:ring-2 focus:ring-white-500">
+                    <option value="0">Light</option>
+                    <option value="1">Medium</option>
+                    <option value="2">Heavy</option>
+                </select>
+            </div>
+
+            <!-- PMS Symptoms -->
+            <div>
+                <label class="block text-sm font-medium mb-1 pb-2">PMS symptoms severity (0-10)</label>
+                <input type="number" name="pms_score" min="0" max="10" required
+                    class="w-full p-2 rounded-xl bg-gray-800 border border-gray-600 focus:ring-2 focus:ring-white-500" />
+            </div>
+
+            <!-- Spotting -->
+            <div>
+                <label class="block text-sm font-medium mb-1 pb-2">Spotting between periods?</label>
+                <select name="spotting" required
+                    class="w-full p-2 rounded-xl bg-gray-800 border border-gray-600 focus:ring-2 focus:ring-white-500">
+                    <option value="0">No</option>
+                    <option value="1">Yes</option>
+                </select>
+            </div>
+
+            <!-- Stress Level -->
+            <div>
+                <label class="block text-sm font-medium mb-1 pb-2">Stress level (0-10)</label>
+                <input type="number" name="stress_level" min="0" max="10" required
+                    class="w-full p-2 rounded-xl bg-gray-800 border border-gray-600 focus:ring-2 focus:ring-white-500" />
+            </div>
+        </form>
+
+        <!-- Submit Button -->
+        <div class="mt-8 text-center">
+            <button type="submit" form="predictionForm"
+                class="bg-green-600 hover:bg-green-700 px-8 py-3 rounded-xl text-white font-semibold transition">Check for Abnormality</button>
+        </div>
+
+        <!-- Prediction Result -->
+        <div id="result" class="mt-6 text-center text-xl font-medium text-white"></div>
+
+        <img src="images/undraw_calendar.svg" alt="illustration of a calendar"
+            class="hidden lg:block absolute bottom-4 right-4 w-35 lg:w-35 max-w-[20%] h-auto opacity-85 pointer-events-none select-none" />
+    </div>
+
+    <!-- Script for form submission -->
+    <script>
+        document.getElementById('predictionForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            const form = e.target;
+            const data = {
+                age: Number(form.age.value),
+                cycle_length: Number(form.cycle_length.value),
+                period_duration: Number(form.period_duration.value),
+                flow_intensity: Number(form.flow_intensity.value),
+                pms_score: Number(form.pms_score.value),
+                spotting: Number(form.spotting.value),
+                stress_level: Number(form.stress_level.value)
+            };
+
+            const resultDiv = document.getElementById('result');
+            resultDiv.textContent = "🔄 Processing...";
+
+            try {
+                const response = await fetch('http://localhost:5000/predict', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+
+                const result = await response.json();
+                resultDiv.textContent = result.prediction === 1
+                    ? "⚠️ Abnormal menstrual pattern detected"
+                    : "✅ Your cycle appears normal!";
+            } catch (err) {
+                resultDiv.textContent = "❌ Error: Unable to get prediction. Please try again.";
+                console.error(err);
+            }
+        });
+    </script>
+</body>
+</html>
