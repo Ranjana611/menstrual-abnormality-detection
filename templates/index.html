@@ -1,0 +1,63 @@
+{% extends 'base.html'%}
+
+{% block content %}
+    <form id="predictionForm" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 pt-4" method="POST" action="{{ url_for('submit')}}">
+
+        <div>
+            <label class="block text-sm font-medium mb-1 pb-2">Age (in years)</label>
+            <input type="number" name="age" required
+                class="w-full p-2 rounded-xl bg-gray-800 border border-gray-600 focus:ring-2 focus:ring-white-500" />
+        </div>
+
+        <div>
+            <label class="block text-sm font-medium mb-1 pb-2">Average cycle length (in days)</label>
+            <input type="number" name="cycle_length" required
+                class="w-full p-2 rounded-xl bg-gray-800 border border-gray-600 focus:ring-2 focus:ring-white-500" />
+        </div>
+
+        <div>
+            <label class="block text-sm font-medium mb-1 pb-2">Period duration (in days)</label>
+            <input type="number" name="period_duration" required
+                class="w-full p-2 rounded-xl bg-gray-800 border border-gray-600 focus:ring-2 focus:ring-white-500" />
+        </div>
+
+        <div>
+            <label class="block text-sm font-medium mb-1 pb-2">Flow intensity</label>
+            <select name="flow_intensity" required
+                class="w-full p-2 rounded-xl bg-gray-800 border border-gray-600 focus:ring-2 focus:ring-white-500">
+                <option value="0">Light</option>
+                <option value="1">Medium</option>
+                <option value="2">Heavy</option>
+            </select>
+        </div>
+
+        <div>
+            <label class="block text-sm font-medium mb-1 pb-2">PMS symptoms severity (0-10)</label>
+            <input type="number" name="pms_score" min="0" max="10" required
+                class="w-full p-2 rounded-xl bg-gray-800 border border-gray-600 focus:ring-2 focus:ring-white-500" />
+        </div>
+
+        <div>
+            <label class="block text-sm font-medium mb-1 pb-2">Spotting between periods?</label>
+            <select name="spotting" required
+                class="w-full p-2 rounded-xl bg-gray-800 border border-gray-600 focus:ring-2 focus:ring-white-500">
+                <option value="0">No</option>
+                <option value="1">Yes</option>
+            </select>
+        </div>
+
+        <div>
+            <label class="block text-sm font-medium mb-1 pb-2">Stress level (0-10)</label>
+            <input type="number" name="stress_level" min="0" max="10" required
+                class="w-full p-2 rounded-xl bg-gray-800 border border-gray-600 focus:ring-2 focus:ring-white-500" />
+        </div>
+        
+    </form>
+
+    <div class="mt-8 text-center">
+            <button type="submit" form="predictionForm"
+                class="bg-green-600 hover:bg-green-700 px-8 py-3 rounded-xl text-white font-semibold transition">Check for Abnormality</button>
+    </div>
+
+{% endblock content %}
+
