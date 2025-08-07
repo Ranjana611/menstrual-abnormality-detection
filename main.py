@@ -4,7 +4,8 @@ import numpy as np
 
 app = Flask(__name__,template_folder='templates',static_folder='static')
 
-model = load('ml_model/random_forest_model.pkl')
+model = load('ml_model/random_forest_model.joblib')
+scaler = load('ml_model/scaler.joblib')
 
 
 @app.route('/')
@@ -24,8 +25,10 @@ def submit():
         stress_level = int(request.form.get('stress_level'))
 
         input_data = np.array([[age, cycle_length, period_duration, flow_intensity, pms_score, spotting, stress_level]])
+        input_data_scaled = scaler.transform(input_data)
 
-        prediction = model.predict(input_data)[0]
+
+        prediction = model.predict(input_data_scaled)[0]
         
 
         print(prediction)
