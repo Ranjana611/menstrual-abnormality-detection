@@ -39,7 +39,7 @@
 
 ## 🌐 Live Application
 
-Try it online: [**CycleSense Web App**]("")
+Try it online: [**[CycleSense Web App](https://prasadnirmal2021.eu.pythonanywhere.com/)**]("")
 
 ---
 
