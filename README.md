@@ -4,7 +4,7 @@
 **CycleSense** is a machine learning-based web application that detects menstrual abnormalities using user inputs. It is powered by a trained **Random Forest** model and built with a **Flask** backend.
 
 <div align="center">
-  <img src="static/images/home.png" alt="Home" width="600"/>
+  <img src="static/images/home.jpg" alt="Home" width="600"/>
 </div>
 
 
@@ -116,11 +116,11 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 ## 📷 Screenshot
 
 <div align="center">
-  <img src="static/images/normal-test.png" alt="Normal-test" width="600"/>
+  <img src="static/images/normal-test.jpg" alt="Normal-test" width="600"/>
 </div>
 <br>
 <div align="center">
-  <img src="static/images/abnormal-test.png" alt="Abnormal-test" width="600"/>
+  <img src="static/images/abnormal-test.jpg" alt="Abnormal-test" width="600"/>
 </div>
 
 ---
