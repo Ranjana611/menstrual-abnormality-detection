@@ -4,7 +4,7 @@
 **CycleSense** is a machine learning-based web application that detects menstrual abnormalities using user inputs. It is powered by a trained **Random Forest** model and built with a **Flask** backend.
 
 <div align="center">
-  <img src="https://github.com/Prasad-root/Menstrual_Abnormality_Detection_System/blob/main/static/images/Screenshot%20from%202025-08-07%2016-01-43.png" alt="App Screenshot" width="600"/>
+  <img src="static/images/home.png" alt="Home" width="600"/>
 </div>
 
 
@@ -39,7 +39,7 @@
 
 ## 🌐 Live Application
 
-Try it online: [**[CycleSense Web App](https://prasadnirmal2021.eu.pythonanywhere.com/)**]("")
+Try it online: [CycleSense Web App](https://prasadnirmal2021.eu.pythonanywhere.com/)
 
 ---
 
@@ -116,11 +116,11 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 ## 📷 Screenshot
 
 <div align="center">
-  <img src="https://github.com/Prasad-root/Menstrual_Abnormality_Detection_System/blob/main/static/images/Screenshot from 2025-08-07 16-12-20.png" alt="App Screenshot" width="600"/>
+  <img src="static/images/normal-test.png" alt="Normal-test" width="600"/>
 </div>
 <br>
 <div align="center">
-  <img src="https://github.com/Prasad-root/Menstrual_Abnormality_Detection_System/blob/main/static/images/Screenshot from 2025-08-07 16-12-52.png" alt="App Screenshot" width="600"/>
+  <img src="static/images/abnormal-test.png" alt="Abnormal-test" width="600"/>
 </div>
 
 ---
